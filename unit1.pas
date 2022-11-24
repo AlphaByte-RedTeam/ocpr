@@ -18,6 +18,7 @@ type
     huruf_sandi: TEdit;
     imgMod: TImage;
     imgSrc: TImage;
+    Label1: TLabel;
   private
 
   public
