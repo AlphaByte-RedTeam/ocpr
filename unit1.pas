@@ -15,6 +15,7 @@ type
     btnLoad: TButton;
     btnPreprocess: TButton;
     btnRecognize: TButton;
+    imgMod: TImage;
     imgSrc: TImage;
   private
 

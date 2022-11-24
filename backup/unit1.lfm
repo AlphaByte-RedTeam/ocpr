@@ -18,7 +18,7 @@ object Form1: TForm1
   object btnPreprocess: TButton
     Left = 80
     Height = 25
-    Top = 248
+    Top = 320
     Width = 75
     Caption = 'PREPROCESS'
     TabOrder = 1
@@ -26,9 +26,22 @@ object Form1: TForm1
   object btnRecognize: TButton
     Left = 80
     Height = 25
-    Top = 408
+    Top = 504
     Width = 75
     Caption = 'RECOGNIZE'
     TabOrder = 2
+  end
+  object imgSrc: TImage
+    Left = 240
+    Height = 200
+    Top = 16
+    Width = 200
+    AutoSize = True
+  end
+  object Image1: TImage
+    Left = 240
+    Height = 200
+    Top = 264
+    Width = 200
   end
 end
