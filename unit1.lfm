@@ -31,4 +31,11 @@ object Form1: TForm1
     Caption = 'RECOGNIZE'
     TabOrder = 2
   end
+  object imgSrc: TImage
+    Left = 240
+    Height = 200
+    Top = 16
+    Width = 200
+    AutoSize = True
+  end
 end
