@@ -1,8 +1,18 @@
 object Form1: TForm1
-  Left = 1021
+  Left = 448
   Height = 579
-  Top = 263
+  Top = 83
   Width = 846
   Caption = 'Form1'
-  LCLVersion = '2.2.0.4'
+  ClientHeight = 579
+  ClientWidth = 846
+  LCLVersion = '2.2.0.1'
+  object btnLoad: TButton
+    Left = 80
+    Height = 25
+    Top = 80
+    Width = 75
+    Caption = 'LOAD'
+    TabOrder = 0
+  end
 end
