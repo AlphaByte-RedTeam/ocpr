@@ -13,6 +13,7 @@ type
 
   TForm1 = class(TForm)
     btnLoad: TButton;
+    btnPreprocess: TButton;
   private
 
   public
