@@ -5,7 +5,8 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
+  ExtDlgs;
 
 type
 
@@ -19,6 +20,7 @@ type
     imgMod: TImage;
     imgSrc: TImage;
     Label1: TLabel;
+    OpenPictureDialog1: TOpenPictureDialog;
   private
 
   public
