@@ -15,6 +15,7 @@ type
     btnLoad: TButton;
     btnPreprocess: TButton;
     btnRecognize: TButton;
+    huruf_sandi: TEdit;
     imgMod: TImage;
     imgSrc: TImage;
   private

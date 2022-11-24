@@ -26,7 +26,7 @@ object Form1: TForm1
   object btnRecognize: TButton
     Left = 80
     Height = 25
-    Top = 504
+    Top = 512
     Width = 75
     Caption = 'RECOGNIZE'
     TabOrder = 2
@@ -43,5 +43,20 @@ object Form1: TForm1
     Height = 200
     Top = 264
     Width = 200
+  end
+  object huruf_sandi: TEdit
+    Left = 240
+    Height = 34
+    Top = 512
+    Width = 136
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -24
+    Font.Name = 'Times New Roman'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    Text = 'huruf_sandi'
   end
 end
