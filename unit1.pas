@@ -88,7 +88,9 @@ var
   tepi_kanan_x : integer;
 
 begin
-  // mengambil nilai tepi atas
+  //*********MELAKUKAN SCAN LINE**********//
+
+  // 1. Mengambil Posisi Tepi Atas OBJEK
   for y := 0 to imgSrc.Height - 1 do
   begin
     for x := 0 to imgSrc.Width - 1 do
@@ -105,7 +107,7 @@ begin
     end;
   end;
 
-  // mengambil nilai tepi bawah
+  // 2. Mengambil Posisi Tepi Bawah Objek
   for y := imgSrc.Height - 1 downto 0 do
   begin
     for x := 0 to imgSrc.Width - 1 do
@@ -122,7 +124,7 @@ begin
     end;
   end;
 
-  // mengambil nilai tepi kiri
+  // 3. Mengambil Posisi Tepi Kiri Objek
   for x := 0 to imgSrc.Width - 1 do
   begin
     for y := 0 to imgSrc.Height - 1 do
@@ -139,7 +141,7 @@ begin
     end;
   end;
 
-  // mengambil nilai tepi kanan
+  // 4. Mengambil Posisi Tepi Kanan Objek
   for x := imgSrc.Width - 1 downto 0 do
   begin
     for y := 0 to imgSrc.Height - 1 do
@@ -156,7 +158,7 @@ begin
     end;
   end;
 
-  // mengambil nilai bitmap daerah yang dipotong
+  // 6. Mengambil Nilai - Nilai Bitmap Daerah yang Dipotong
   for j := tepi_atas_y to tepi_bawah_y do
   begin
     for i := tepi_kiri_x to tepi_kanan_x do
@@ -165,11 +167,11 @@ begin
     end;
   end;
 
-  // mengatur tinggi dan lebar gambar setelah dipotong
+  // 7. Mengatur Tinggi dan Lebar Gambar Setelah Dipotong
   imgMod.Width := tepi_kanan_x - tepi_kiri_x;
   imgMod.Height := tepi_bawah_y - tepi_atas_y;
 
-  //menampilkan pixel ke gambar setelah dipotong
+  // 8. Menampilkan Pixel ke Gambar Setelah Dipotong
   for y := 0 to imgMod.Height do
   begin
     for x := 0 to imgMod.Width do
