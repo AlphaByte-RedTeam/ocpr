@@ -20,6 +20,7 @@ type
     imgMod: TImage;
     imgSrc: TImage;
     Label1: TLabel;
+    Label2: TLabel;
     ListBox1: TListBox;
     OpenPictureDialog1: TOpenPictureDialog;
     procedure btnLoadClick(Sender: TObject);

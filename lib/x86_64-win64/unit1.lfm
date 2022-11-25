@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 159
+  Left = 386
   Height = 579
-  Top = 93
+  Top = 78
   Width = 846
   Caption = 'Form1'
   ClientHeight = 579
@@ -13,16 +13,26 @@ object Form1: TForm1
     Top = 112
     Width = 75
     Caption = 'LOAD'
+    Font.CharSet = ANSI_CHARSET
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
     OnClick = btnLoadClick
+    ParentFont = False
     TabOrder = 0
   end
   object btnPreprocess: TButton
     Left = 560
     Height = 25
     Top = 112
-    Width = 75
+    Width = 83
     Caption = 'PREPROCESS'
+    Font.CharSet = ANSI_CHARSET
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
     OnClick = btnPreprocessClick
+    ParentFont = False
     TabOrder = 1
   end
   object btnRecognize: TButton
@@ -31,6 +41,11 @@ object Form1: TForm1
     Top = 112
     Width = 75
     Caption = 'RECOGNIZE'
+    Font.CharSet = ANSI_CHARSET
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 2
   end
   object imgSrc: TImage
@@ -76,12 +91,25 @@ object Form1: TForm1
     ParentFont = False
   end
   object ListBox1: TListBox
-    Left = 536
+    Left = 528
     Height = 168
-    Top = 411
+    Top = 432
     Width = 136
     ItemHeight = 0
     TabOrder = 4
+  end
+  object Label2: TLabel
+    Left = 528
+    Height = 21
+    Top = 400
+    Width = 130
+    Caption = 'FITUR CITRA'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Elephant'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentFont = False
   end
   object OpenPictureDialog1: TOpenPictureDialog
     Left = 48
