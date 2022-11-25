@@ -20,6 +20,7 @@ type
     imgMod: TImage;
     imgSrc: TImage;
     Label1: TLabel;
+    ListBox1: TListBox;
     OpenPictureDialog1: TOpenPictureDialog;
     procedure btnLoadClick(Sender: TObject);
     procedure btnPreprocessClick(Sender: TObject);
@@ -42,6 +43,8 @@ uses
 var
   bitmapR, bitmapG, bitmapB : array[0..1000, 0..1000] of integer;
   bitmapGray, bitmapBiner, bitmapBiner2   : array[0..1000, 0..1000] of integer;
+  feature : array[0..1000, 0..1000] of integer;
+  feature_distribution  : array[0..1000, 0..1000] of double;
 
 { TForm1 }
 
@@ -82,15 +85,26 @@ procedure TForm1.btnPreprocessClick(Sender: TObject);
 var
   x, y    : integer;
   i, j    : integer;
+
+  // Variabel Untuk Proses Scan Line
   tepi_atas_y  : integer;
   tepi_bawah_y : integer;
   tepi_kiri_x  : integer;
   tepi_kanan_x : integer;
 
-begin
-  //*********MELAKUKAN SCAN LINE**********//
+  // Variabel Untuk Proses Ekstraksi Gambar Pertama
+  feature_number : integer;
+  cell_width, cell_height : integer;
+  left_most_cell, right_most_cell : integer;
+  top_most_cell, bottom_most_cell : integer;
+  total_cells_in_1_feature : integer;
 
-  // 1. Mengambil Posisi Tepi Atas OBJEK
+begin
+(*------------------------------------*)
+(*********MELAKUKAN SCAN LINE**********)
+(*------------------------------------*)
+
+  { 1. Mengambil Posisi Tepi Atas OBJEK }
   for y := 0 to imgSrc.Height - 1 do
   begin
     for x := 0 to imgSrc.Width - 1 do
@@ -107,7 +121,7 @@ begin
     end;
   end;
 
-  // 2. Mengambil Posisi Tepi Bawah Objek
+  { 2. Mengambil Posisi Tepi Bawah Objek }
   for y := imgSrc.Height - 1 downto 0 do
   begin
     for x := 0 to imgSrc.Width - 1 do
@@ -124,7 +138,7 @@ begin
     end;
   end;
 
-  // 3. Mengambil Posisi Tepi Kiri Objek
+  { 3. Mengambil Posisi Tepi Kiri Objek }
   for x := 0 to imgSrc.Width - 1 do
   begin
     for y := 0 to imgSrc.Height - 1 do
@@ -141,7 +155,7 @@ begin
     end;
   end;
 
-  // 4. Mengambil Posisi Tepi Kanan Objek
+  { 4. Mengambil Posisi Tepi Kanan Objek }
   for x := imgSrc.Width - 1 downto 0 do
   begin
     for y := 0 to imgSrc.Height - 1 do
@@ -158,7 +172,7 @@ begin
     end;
   end;
 
-  // 6. Mengambil Nilai - Nilai Bitmap Daerah yang Dipotong
+  { 6. Mengambil Nilai - Nilai Bitmap Daerah yang Dipotong }
   for j := tepi_atas_y to tepi_bawah_y do
   begin
     for i := tepi_kiri_x to tepi_kanan_x do
@@ -167,11 +181,11 @@ begin
     end;
   end;
 
-  // 7. Mengatur Tinggi dan Lebar Gambar Setelah Dipotong
+  { 7. Mengatur Tinggi dan Lebar Gambar Setelah Dipotong }
   imgMod.Width := tepi_kanan_x - tepi_kiri_x;
   imgMod.Height := tepi_bawah_y - tepi_atas_y;
 
-  // 8. Menampilkan Pixel ke Gambar Setelah Dipotong
+  { 8. Menampilkan Pixel ke Gambar Setelah Dipotong }
   for y := 0 to imgMod.Height do
   begin
     for x := 0 to imgMod.Width do
@@ -182,6 +196,61 @@ begin
         imgMod.Canvas.Pixels[x, y] := RGB(255, 255, 255);
     end;
   end;
+(*------------------------------------*)
+(******MENGESKTRAKSI FITUR CITRA*******)
+
+  { 1. menentukan lebar dan tinggi setiap cell setelah TImage dibagi menjadi matriks 5x5    }
+  cell_width  := ceil(imgMod.Width / 5) - 1;
+  cell_height := ceil(imgMod.Height / 5) - 1;
+
+  // menentukan posisi paling kiri dan posisi paling kanan pixel dalam suatu daerah fitur
+  left_most_cell  := 0;
+  right_most_cell := 0;
+
+  // menentukan posisi paling atas dan posisi paling bawah dalam suatu daerahfitur
+  top_most_cell   := 0;
+  bottom_most_cell:= 0;
+
+  for j := 1 to 5 do
+  begin
+    left_most_cell  := 0;
+    right_most_cell := 0;
+    for i := 1 to 5 do
+    begin
+      for y := (top_most_cell) to (cell_height + bottom_most_cell) do
+      begin
+        for x := (left_most_cell) to (cell_width + right_most_cell) do
+        begin
+          if(bitmapBiner2[x,y] = 0) then
+            feature[i,j] += 1
+        end;
+      end;
+      left_most_cell  += cell_width;
+      right_most_cell += cell_width;
+    end;
+    top_most_cell    += cell_height;
+    bottom_most_cell += cell_height;
+  end;
+
+  total_cells_in_1_feature := (cell_width + 1) * (cell_height + 1);
+  for y := 1 to 5 do
+  begin
+    for x := 1 to 5 do
+    begin
+      feature_distribution[x,y] := (feature[x,y] /total_cells_in_1_feature);
+    end;
+  end;
+
+  feature_number += 1;
+  for y := 1 to 5 do
+  begin
+    for x := 1 to 5 do
+    begin
+      ListBox1.Items.Add('Fitur ' + IntToStr(feature_number) + ' : ' + IntToStr(round(feature_distribution[x,y]*100)) + '%');
+      feature_number += 1;
+    end;
+  end;
+
 end;
 
 end.

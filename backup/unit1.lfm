@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 404
+  Left = 159
   Height = 579
-  Top = 111
+  Top = 93
   Width = 846
   Caption = 'Form1'
   ClientHeight = 579
@@ -74,6 +74,14 @@ object Form1: TForm1
     Font.Quality = fqDraft
     Font.Style = [fsItalic]
     ParentFont = False
+  end
+  object ListBox1: TListBox
+    Left = 536
+    Height = 168
+    Top = 411
+    Width = 136
+    ItemHeight = 0
+    TabOrder = 4
   end
   object OpenPictureDialog1: TOpenPictureDialog
     Left = 48
