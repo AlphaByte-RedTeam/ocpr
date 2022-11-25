@@ -22,6 +22,7 @@ object Form1: TForm1
     Top = 112
     Width = 75
     Caption = 'PREPROCESS'
+    OnClick = btnPreprocessClick
     TabOrder = 1
   end
   object btnRecognize: TButton

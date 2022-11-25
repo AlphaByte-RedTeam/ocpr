@@ -52,7 +52,7 @@ var
 begin
   if(OpenPictureDialog1.Execute) then
   begin
-    imgSrc.Picture.LoadFromFilE(OpenPictureDialog.FileName);
+    imgSrc.Picture.LoadFromFilE(OpenPictureDialog1.FileName);
   end;
 
   for y := 0 to imgSrc.Height-1 do
