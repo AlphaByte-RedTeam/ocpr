@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 444
+  Left = 404
   Height = 579
-  Top = 118
+  Top = 111
   Width = 846
   Caption = 'Form1'
   ClientHeight = 579
@@ -13,6 +13,7 @@ object Form1: TForm1
     Top = 112
     Width = 75
     Caption = 'LOAD'
+    OnClick = btnLoadClick
     TabOrder = 0
   end
   object btnPreprocess: TButton

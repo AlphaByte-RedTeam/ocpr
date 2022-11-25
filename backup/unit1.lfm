@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 448
+  Left = 404
   Height = 579
-  Top = 83
+  Top = 111
   Width = 846
   Caption = 'Form1'
   ClientHeight = 579
@@ -13,6 +13,7 @@ object Form1: TForm1
     Top = 112
     Width = 75
     Caption = 'LOAD'
+    OnClick = btnLoadClick
     TabOrder = 0
   end
   object btnPreprocess: TButton
@@ -72,5 +73,9 @@ object Form1: TForm1
     Font.Quality = fqDraft
     Font.Style = [fsItalic]
     ParentFont = False
+  end
+  object OpenPictureDialog1: TOpenPictureDialog
+    Left = 48
+    Top = 24
   end
 end
