@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 386
+  Left = 276
   Height = 579
-  Top = 78
+  Top = 151
   Width = 846
   Caption = 'Form1'
   ClientHeight = 579
@@ -112,7 +112,31 @@ object Form1: TForm1
     ParentFont = False
   end
   object OpenPictureDialog1: TOpenPictureDialog
-    Left = 48
-    Top = 24
+    Left = 64
+    Top = 8
+  end
+  object MySQL56Connection1: TMySQL56Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    SkipLibraryVersionCheck = False
+    Left = 32
+    Top = 72
+  end
+  object SQLTransaction1: TSQLTransaction
+    Active = False
+    Left = 144
+    Top = 72
+  end
+  object SQLQuery1: TSQLQuery
+    FieldDefs = <>
+    Params = <>
+    Macros = <>
+    Left = 32
+    Top = 128
+  end
+  object DataSource1: TDataSource
+    Left = 144
+    Top = 128
   end
 end

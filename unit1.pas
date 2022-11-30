@@ -5,8 +5,8 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
-  ExtDlgs;
+  Classes, SysUtils, mysql56conn, SQLDB, DB, Forms, Controls, Graphics, Dialogs,
+  StdCtrls, ExtCtrls, ExtDlgs;
 
 type
 
@@ -16,13 +16,17 @@ type
     btnLoad: TButton;
     btnPreprocess: TButton;
     btnRecognize: TButton;
+    DataSource1: TDataSource;
     huruf_sandi: TEdit;
     imgMod: TImage;
     imgSrc: TImage;
     Label1: TLabel;
     Label2: TLabel;
     ListBox1: TListBox;
+    MySQL56Connection1: TMySQL56Connection;
     OpenPictureDialog1: TOpenPictureDialog;
+    SQLQuery1: TSQLQuery;
+    SQLTransaction1: TSQLTransaction;
     procedure btnLoadClick(Sender: TObject);
     procedure btnPreprocessClick(Sender: TObject);
   private
