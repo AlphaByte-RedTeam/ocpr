@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 347
+  Left = 195
   Height = 579
-  Top = 112
+  Top = 193
   Width = 931
   Caption = 'Form1'
   ClientHeight = 579
@@ -120,32 +120,185 @@ object Form1: TForm1
     TabOrder = 5
     Text = 'Edit1'
   end
+  object DBGrid1: TDBGrid
+    Left = 720
+    Height = 200
+    Top = 432
+    Width = 496
+    Color = clWindow
+    Columns = <>
+    DataSource = DataSource1
+    TabOrder = 6
+  end
   object OpenPictureDialog1: TOpenPictureDialog
     Left = 64
     Top = 8
   end
-  object dbSQLTransaction: TSQLTransaction
+  object trans1: TSQLTransaction
     Active = False
-    Database = dbMySQLConnection
+    Database = conn1
     Left = 144
     Top = 72
   end
-  object dbSQLQuery: TSQLQuery
-    FieldDefs = <>
+  object query1: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    MaxIndexesCount = 4
+    FieldDefs = <    
+      item
+        Name = 'kode_sample'
+        DataType = ftAutoInc
+        Precision = -1
+      end    
+      item
+        Name = 'abjad'
+        DataType = ftString
+        Precision = -1
+        Size = 1
+      end    
+      item
+        Name = 'fitur_1'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_2'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_3'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_4'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_5'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_6'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_7'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_8'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_9'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_10'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_11'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_12'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_13'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_14'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_15'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_16'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_17'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_18'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_19'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_20'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_21'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_22'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_23'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_24'
+        DataType = ftFloat
+        Precision = -1
+      end    
+      item
+        Name = 'fitur_25'
+        DataType = ftFloat
+        Precision = -1
+      end>
+    Database = conn1
+    Transaction = trans1
+    SQL.Strings = (
+      'SELECT * FROM sample27'
+    )
     Params = <>
     Macros = <>
-    Left = 88
+    Left = 128
     Top = 136
   end
-  object dbMySQLConnection: TMySQL57Connection
-    Connected = False
+  object conn1: TMySQL57Connection
+    Connected = True
     LoginPrompt = False
     DatabaseName = 'sandi_kotak'
     KeepConnection = False
     Params.Strings = (
       'Port=3307'
     )
-    Transaction = dbSQLTransaction
+    Transaction = trans1
     UserName = 'root'
     HostName = '127.0.0.1'
     SkipLibraryVersionCheck = False
@@ -159,5 +312,10 @@ object Form1: TForm1
     SkipLibraryVersionCheck = False
     Left = 773
     Top = 65522
+  end
+  object DataSource1: TDataSource
+    DataSet = query1
+    Left = 32
+    Top = 136
   end
 end

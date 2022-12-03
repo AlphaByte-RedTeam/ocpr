@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, mysql56conn, mysql57conn, SQLDB, DB, Forms, Controls,
-  Graphics, Dialogs, StdCtrls, ExtCtrls, ExtDlgs;
+  Graphics, Dialogs, StdCtrls, ExtCtrls, ExtDlgs, DBGrids;
 
 type
 
@@ -16,6 +16,8 @@ type
     btnLoad: TButton;
     btnPreprocess: TButton;
     btnRecognize: TButton;
+    DataSource1: TDataSource;
+    DBGrid1: TDBGrid;
     Edit1: TEdit;
     huruf_sandi: TEdit;
     imgMod: TImage;
@@ -23,11 +25,11 @@ type
     Label1: TLabel;
     Label2: TLabel;
     ListBox1: TListBox;
-    dbMySQLConnection: TMySQL57Connection;
+    conn1: TMySQL57Connection;
     MySQL57Connection2: TMySQL57Connection;
     OpenPictureDialog1: TOpenPictureDialog;
-    dbSQLQuery: TSQLQuery;
-    dbSQLTransaction: TSQLTransaction;
+    query1: TSQLQuery;
+    trans1: TSQLTransaction;
     procedure btnLoadClick(Sender: TObject);
     procedure btnPreprocessClick(Sender: TObject);
     procedure btnRecognizeClick(Sender: TObject);
@@ -50,8 +52,8 @@ uses
 var
   bitmapR, bitmapG, bitmapB : array[0..1000, 0..1000] of integer;
   bitmapGray, bitmapBiner, bitmapBiner2   : array[0..1000, 0..1000] of integer;
-  feature : array[0..1000, 0..1000] of integer;
-  feature_distribution  : array[0..1000, 0..1000] of double;
+  feature : array[1..5, 1..5] of integer;
+  feature_distribution  : array[1..5, 1..5] of double;
 
 { TForm1 }
 
@@ -80,10 +82,18 @@ begin
       bitmapB[x, y] := B;
 
       bitmapGray[x, y] := Gray;
-      if Gray > 127 then
+      if Gray > 200 then
         bitmapBiner[x, y] := 1
       else
         bitmapBiner[x, y] := 0;
+    end;
+  end;
+
+  for y := 1 to 5 do
+  begin
+    for x := 1 to 5 do
+    begin
+      feature[x,y] := 0;
     end;
   end;
 end;
@@ -207,8 +217,8 @@ begin
 (******MENGESKTRAKSI FITUR CITRA*******)
 
   { 1. menentukan lebar dan tinggi setiap cell setelah TImage dibagi menjadi matriks 5x5    }
-  cell_width  := ceil(imgMod.Width / 5) - 1;
-  cell_height := ceil(imgMod.Height / 5) - 1;
+  cell_width  := round(imgMod.Width / 5);
+  cell_height := round(imgMod.Height / 5);
 
   // menentukan posisi paling kiri dan posisi paling kanan pixel dalam suatu daerah fitur
   left_most_cell  := 0;
@@ -239,7 +249,7 @@ begin
     bottom_most_cell += cell_height;
   end;
 
-  total_cells_in_1_feature := (cell_width + 1) * (cell_height + 1);
+  total_cells_in_1_feature := (cell_width ) * (cell_height);
   for y := 1 to 5 do
   begin
     for x := 1 to 5 do
@@ -248,12 +258,14 @@ begin
     end;
   end;
 
+  ListBox1.Clear;
+
   feature_number += 1;
   for y := 1 to 5 do
   begin
     for x := 1 to 5 do
     begin
-      ListBox1.Items.Add('Fitur ' + IntToStr(feature_number) + ' : ' + IntToStr(round(feature_distribution[x,y]*100)) + '%');
+      ListBox1.Items.Add('Fitur ' + IntToStr(feature_number) + ' : ' + IntToStr(round((feature_distribution[x,y]*100))) + '%');
       feature_number += 1;
     end;
   end;
@@ -261,17 +273,29 @@ begin
 end;
 
 procedure TForm1.btnRecognizeClick(Sender: TObject);
+var
+  x, y : integer;
 
 begin
-    if dbMySQLConnection.Connected then
-        dbMySQLConnection.Close;
-    try
-        dbMySQLConnection.Open;
-        Edit1.Text := 'Connection to MySQL database "world" = OK!';
-    except
-        on E: ESQLDatabaseError do
-        Edit1.Text := 'Connection to MySQL database "world" FAILED!';
-    end;
+  query1.SQL.Clear;
+  query1.SQL.Add('INSERT INTO sample27 (abjad, fitur_1, fitur_2, fitur_3, fitur_4, fitur_5,'+
+                 'fitur_6, fitur_7, fitur_8, fitur_9, fitur_10, fitur_11, fitur_12, fitur_13,'+
+                 'fitur_14, fitur_15, fitur_16, fitur_17, fitur_18, fitur_19, fitur_20, fitur_21,' +
+                 'fitur_22, fitur_23, fitur_24, fitur_25)' +
+                 'VALUES ("A", ' +
+                 quotedStr(FloatToStr(feature_distribution[1,1])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,1])) + ',' + quotedStr(FloatToStr(feature_distribution[3,1])) + ',' + quotedStr(FloatToStr(feature_distribution[4,1])) + ',' + quotedStr(FloatToStr(feature_distribution[5,1])) + ',' +
+                 quotedStr(FloatToStr(feature_distribution[1,2])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,2])) + ',' + quotedStr(FloatToStr(feature_distribution[3,2])) + ',' + quotedStr(FloatToStr(feature_distribution[4,2])) + ',' + quotedStr(FloatToStr(feature_distribution[5,2])) + ',' +
+                 quotedStr(FloatToStr(feature_distribution[1,3])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,3])) + ',' + quotedStr(FloatToStr(feature_distribution[3,3])) + ',' + quotedStr(FloatToStr(feature_distribution[4,3])) + ',' + quotedStr(FloatToStr(feature_distribution[5,3])) + ',' +
+                 quotedStr(FloatToStr(feature_distribution[1,4])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,4])) + ',' + quotedStr(FloatToStr(feature_distribution[3,4])) + ',' + quotedStr(FloatToStr(feature_distribution[4,4])) + ',' + quotedStr(FloatToStr(feature_distribution[5,4])) + ',' +
+                 quotedStr(FloatToStr(feature_distribution[1,5])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,5])) + ',' + quotedStr(FloatToStr(feature_distribution[3,5])) + ',' + quotedStr(FloatToStr(feature_distribution[4,5])) + ',' + quotedStr(FloatToStr(feature_distribution[5,5])) + ')');
+  query1.ExecSQL;
+  trans1.Commit;
+
+  query1.SQL.Clear;
+  query1.SQL.Add('SELECT * FROM sample27');
+  query1.Close;
+  query1.Open;
+
 end;
 
 end.
