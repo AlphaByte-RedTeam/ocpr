@@ -265,10 +265,6 @@ procedure TForm1.btnRecognizeClick(Sender: TObject);
 begin
     if dbMySQLConnection.Connected then
         dbMySQLConnection.Close;
-    dbMySQLConnection.HostName := '127.0.0.1';
-    dbMySQLConnection.UserName := 'root';
-    dbMySQLConnection.Password := '';
-    dbMySQLConnection.DatabaseName := 'sandi_kotak';
     try
         dbMySQLConnection.Open;
         Edit1.Text := 'Connection to MySQL database "world" = OK!';

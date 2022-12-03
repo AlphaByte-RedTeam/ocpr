@@ -140,11 +140,14 @@ object Form1: TForm1
   object dbMySQLConnection: TMySQL57Connection
     Connected = False
     LoginPrompt = False
+    DatabaseName = 'sandi_kotak'
     KeepConnection = False
     Params.Strings = (
       'Port=3307'
     )
     Transaction = dbSQLTransaction
+    UserName = 'root'
+    HostName = '127.0.0.1'
     SkipLibraryVersionCheck = False
     Left = 32
     Top = 72
