@@ -5,8 +5,8 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
-  ExtDlgs;
+  Classes, SysUtils, mysql56conn, mysql57conn, SQLDB, DB, Forms, Controls,
+  Graphics, Dialogs, StdCtrls, ExtCtrls, ExtDlgs;
 
 type
 
@@ -16,15 +16,21 @@ type
     btnLoad: TButton;
     btnPreprocess: TButton;
     btnRecognize: TButton;
+    Edit1: TEdit;
     huruf_sandi: TEdit;
     imgMod: TImage;
     imgSrc: TImage;
     Label1: TLabel;
     Label2: TLabel;
     ListBox1: TListBox;
+    dbMySQLConnection: TMySQL57Connection;
+    MySQL57Connection2: TMySQL57Connection;
     OpenPictureDialog1: TOpenPictureDialog;
+    dbSQLQuery: TSQLQuery;
+    dbSQLTransaction: TSQLTransaction;
     procedure btnLoadClick(Sender: TObject);
     procedure btnPreprocessClick(Sender: TObject);
+    procedure btnRecognizeClick(Sender: TObject);
   private
 
   public
@@ -252,6 +258,24 @@ begin
     end;
   end;
 
+end;
+
+procedure TForm1.btnRecognizeClick(Sender: TObject);
+
+begin
+    if dbMySQLConnection.Connected then
+        dbMySQLConnection.Close;
+    dbMySQLConnection.HostName := '127.0.0.1';
+    dbMySQLConnection.UserName := 'root';
+    dbMySQLConnection.Password := '';
+    dbMySQLConnection.DatabaseName := 'sandi_kotak';
+    try
+        dbMySQLConnection.Open;
+        Edit1.Text := 'Connection to MySQL database "world" = OK!';
+    except
+        on E: ESQLDatabaseError do
+        Edit1.Text := 'Connection to MySQL database "world" FAILED!';
+    end;
 end;
 
 end.

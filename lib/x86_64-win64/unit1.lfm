@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 386
+  Left = 347
   Height = 579
-  Top = 78
-  Width = 846
+  Top = 112
+  Width = 931
   Caption = 'Form1'
   ClientHeight = 579
-  ClientWidth = 846
+  ClientWidth = 931
   LCLVersion = '2.2.0.1'
   object btnLoad: TButton
     Left = 240
@@ -45,6 +45,7 @@ object Form1: TForm1
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
+    OnClick = btnRecognizeClick
     ParentFont = False
     TabOrder = 2
   end
@@ -111,8 +112,52 @@ object Form1: TForm1
     Font.Quality = fqDraft
     ParentFont = False
   end
+  object Edit1: TEdit
+    Left = 164
+    Height = 23
+    Top = 444
+    Width = 280
+    TabOrder = 5
+    Text = 'Edit1'
+  end
   object OpenPictureDialog1: TOpenPictureDialog
-    Left = 48
-    Top = 24
+    Left = 64
+    Top = 8
+  end
+  object dbSQLTransaction: TSQLTransaction
+    Active = False
+    Database = dbMySQLConnection
+    Left = 144
+    Top = 72
+  end
+  object dbSQLQuery: TSQLQuery
+    FieldDefs = <>
+    Params = <>
+    Macros = <>
+    Left = 88
+    Top = 136
+  end
+  object dbMySQLConnection: TMySQL57Connection
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = 'sandi_kotak'
+    KeepConnection = False
+    Params.Strings = (
+      'Port=3307'
+    )
+    Transaction = dbSQLTransaction
+    UserName = 'root'
+    HostName = '127.0.0.1'
+    SkipLibraryVersionCheck = False
+    Left = 32
+    Top = 72
+  end
+  object MySQL57Connection2: TMySQL57Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    SkipLibraryVersionCheck = False
+    Left = 773
+    Top = 65522
   end
 end
