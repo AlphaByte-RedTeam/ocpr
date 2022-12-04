@@ -110,21 +110,21 @@ end;
 
 procedure TForm1.btnPreprocessClick(Sender: TObject);
 var
-  x, y: integer;
-  i, j: integer;
+  x, y : integer;
+  i, j : integer;
 
   // Variabel Untuk Proses Scan Line
-  tepi_atas_y: integer;
-  tepi_bawah_y: integer;
-  tepi_kiri_x: integer;
-  tepi_kanan_x: integer;
+  tepi_atas_y  : integer;
+  tepi_bawah_y : integer;
+  tepi_kiri_x  : integer;
+  tepi_kanan_x : integer;
 
   // Variabel Untuk Proses Ekstraksi Gambar Pertama
-  feature_number: integer;
-  cell_width, cell_height: integer;
-  left_most_cell, right_most_cell: integer;
-  top_most_cell, bottom_most_cell: integer;
-  total_cells_in_1_feature: integer;
+  feature_number                  : integer;
+  cell_width, cell_height         : integer;
+  left_most_cell, right_most_cell : integer;
+  top_most_cell, bottom_most_cell : integer;
+  total_cells_in_1_feature        : integer;
 
 begin
   (*------------------------------------*)
@@ -138,6 +138,9 @@ begin
       feature_distribution[x,y] := 0;
     end;
   end;
+
+  imgMod.Width  := 200;
+  imgMod.Height := 200;
 
   { 1. Mengambil Posisi Tepi Atas OBJEK }
   for y := 0 to imgSrc.Height - 1 do
@@ -348,35 +351,39 @@ end;
 procedure TForm1.btnRecognizeClick(Sender: TObject);
 var
   x, y : integer;
-  L1 : double;
-  LValIdx: Integer;
-  LMinIdx: Integer = 1;
+  L1   : double;
+  LValIdx : Integer;
+  LMinIdx : Integer = 1;
 
 begin
   feature_input[1]   := feature_distribution[1,1];
-  feature_input[2]   := feature_distribution[1,2];
-  feature_input[3]   := feature_distribution[1,3];
-  feature_input[4]   := feature_distribution[1,4];
-  feature_input[5]   := feature_distribution[1,5];
-  feature_input[6]   := feature_distribution[2,1];
+  feature_input[2]   := feature_distribution[2,1];
+  feature_input[3]   := feature_distribution[3,1];
+  feature_input[4]   := feature_distribution[4,1];
+  feature_input[5]   := feature_distribution[5,1];
+
+  feature_input[6]   := feature_distribution[1,2];
   feature_input[7]   := feature_distribution[2,2];
-  feature_input[8]   := feature_distribution[2,3];
-  feature_input[9]   := feature_distribution[2,4];
-  feature_input[10]  := feature_distribution[2,5];
-  feature_input[11]  := feature_distribution[3,1];
-  feature_input[12]  := feature_distribution[3,2];
+  feature_input[8]   := feature_distribution[3,2];
+  feature_input[9]   := feature_distribution[4,2];
+  feature_input[10]  := feature_distribution[5,2];
+
+  feature_input[11]  := feature_distribution[1,3];
+  feature_input[12]  := feature_distribution[2,3];
   feature_input[13]  := feature_distribution[3,3];
-  feature_input[14]  := feature_distribution[3,4];
-  feature_input[15]  := feature_distribution[3,5];
-  feature_input[16]  := feature_distribution[4,1];
-  feature_input[17]  := feature_distribution[4,2];
-  feature_input[18]  := feature_distribution[4,3];
+  feature_input[14]  := feature_distribution[4,3];
+  feature_input[15]  := feature_distribution[5,3];
+
+  feature_input[16]  := feature_distribution[1,4];
+  feature_input[17]  := feature_distribution[2,4];
+  feature_input[18]  := feature_distribution[3,4];
   feature_input[19]  := feature_distribution[4,4];
-  feature_input[20]  := feature_distribution[4,5];
-  feature_input[21]  := feature_distribution[5,1];
-  feature_input[22]  := feature_distribution[5,2];
-  feature_input[23]  := feature_distribution[5,3];
-  feature_input[24]  := feature_distribution[5,4];
+  feature_input[20]  := feature_distribution[5,4];
+
+  feature_input[21]  := feature_distribution[1,5];
+  feature_input[22]  := feature_distribution[2,5];
+  feature_input[23]  := feature_distribution[3,5];
+  feature_input[24]  := feature_distribution[4,5];
   feature_input[25]  := feature_distribution[5,5];
 
   L1 := 0;
@@ -403,8 +410,17 @@ begin
   key_index := LMinIdx;
   ListBox1.Clear;
 
-  ListBox1.Items.Add(IntToStr(key_index));
-  huruf_sandi.Text := abjad[1,key_index];
+  if(jarak_1[key_index] > 5) then
+  begin
+      huruf_sandi.Font.Color := clRed;
+      huruf_sandi.Text := 'Sandi Tidak Dikenali!'
+  end
+  else
+  begin
+      ListBox1.Items.Add(IntToStr(key_index));
+      huruf_sandi.Font.Color := clRed;
+      huruf_sandi.Text := abjad[1,key_index];
+  end;
 
 end;
 

@@ -110,21 +110,21 @@ end;
 
 procedure TForm1.btnPreprocessClick(Sender: TObject);
 var
-  x, y: integer;
-  i, j: integer;
+  x, y : integer;
+  i, j : integer;
 
   // Variabel Untuk Proses Scan Line
-  tepi_atas_y: integer;
-  tepi_bawah_y: integer;
-  tepi_kiri_x: integer;
-  tepi_kanan_x: integer;
+  tepi_atas_y  : integer;
+  tepi_bawah_y : integer;
+  tepi_kiri_x  : integer;
+  tepi_kanan_x : integer;
 
   // Variabel Untuk Proses Ekstraksi Gambar Pertama
-  feature_number: integer;
-  cell_width, cell_height: integer;
-  left_most_cell, right_most_cell: integer;
-  top_most_cell, bottom_most_cell: integer;
-  total_cells_in_1_feature: integer;
+  feature_number                  : integer;
+  cell_width, cell_height         : integer;
+  left_most_cell, right_most_cell : integer;
+  top_most_cell, bottom_most_cell : integer;
+  total_cells_in_1_feature        : integer;
 
 begin
   (*------------------------------------*)
@@ -138,6 +138,9 @@ begin
       feature_distribution[x,y] := 0;
     end;
   end;
+
+  imgMod.Width  := 200;
+  imgMod.Height := 200;
 
   { 1. Mengambil Posisi Tepi Atas OBJEK }
   for y := 0 to imgSrc.Height - 1 do
@@ -348,9 +351,9 @@ end;
 procedure TForm1.btnRecognizeClick(Sender: TObject);
 var
   x, y : integer;
-  L1 : double;
-  LValIdx: Integer;
-  LMinIdx: Integer = 1;
+  L1   : double;
+  LValIdx : Integer;
+  LMinIdx : Integer = 1;
 
 begin
   feature_input[1]   := feature_distribution[1,1];
@@ -407,8 +410,17 @@ begin
   key_index := LMinIdx;
   ListBox1.Clear;
 
-  ListBox1.Items.Add(IntToStr(key_index));
-  huruf_sandi.Text := abjad[1,key_index];
+  if(jarak_1[key_index] > 5) then
+  begin
+      huruf_sandi.Font.Color := clRed;
+      huruf_sandi.Text := 'Sandi Tidak Dikenali!'
+  end
+  else
+  begin
+      ListBox1.Items.Add(IntToStr(key_index));
+      huruf_sandi.Font.Color := clBlack;
+      huruf_sandi.Text := abjad[1,key_index];
+  end;
 
 end;
 

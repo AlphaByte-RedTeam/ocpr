@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 361
+  Left = 407
   Height = 579
-  Top = 51
+  Top = 58
   Width = 931
   Caption = 'Form1'
   ClientHeight = 579
@@ -67,7 +67,7 @@ object Form1: TForm1
     Left = 824
     Height = 34
     Top = 184
-    Width = 136
+    Width = 248
     Font.CharSet = ANSI_CHARSET
     Font.Height = -24
     Font.Name = 'Times New Roman'
