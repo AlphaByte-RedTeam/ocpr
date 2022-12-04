@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 334
+  Left = 109
   Height = 579
-  Top = 64
+  Top = 53
   Width = 931
   Caption = 'Form1'
   ClientHeight = 579
@@ -113,14 +113,6 @@ object Form1: TForm1
     Font.Quality = fqDraft
     ParentFont = False
   end
-  object Edit1: TEdit
-    Left = 164
-    Height = 23
-    Top = 444
-    Width = 280
-    TabOrder = 5
-    Text = 'Edit1'
-  end
   object DBGrid1: TDBGrid
     Left = 720
     Height = 200
@@ -129,6 +121,14 @@ object Form1: TForm1
     Color = clWindow
     Columns = <>
     DataSource = DataSource1
+    TabOrder = 5
+  end
+  object ListBox2: TListBox
+    Left = 216
+    Height = 152
+    Top = 456
+    Width = 132
+    ItemHeight = 0
     TabOrder = 6
   end
   object OpenPictureDialog1: TOpenPictureDialog
@@ -136,7 +136,7 @@ object Form1: TForm1
     Top = 8
   end
   object trans1: TSQLTransaction
-    Active = False
+    Active = True
     Database = conn1
     Left = 144
     Top = 72
@@ -168,17 +168,17 @@ object Form1: TForm1
       end    
       item
         Name = 'fitur_3'
-        DataType = ftInteger
+        DataType = ftFloat
         Precision = -1
       end    
       item
         Name = 'fitur_4'
-        DataType = ftInteger
+        DataType = ftFloat
         Precision = -1
       end    
       item
         Name = 'fitur_5'
-        DataType = ftInteger
+        DataType = ftFloat
         Precision = -1
       end    
       item
@@ -281,6 +281,7 @@ object Form1: TForm1
         DataType = ftFloat
         Precision = -1
       end>
+    Active = True
     Database = conn1
     Transaction = trans1
     SQL.Strings = (
@@ -292,7 +293,7 @@ object Form1: TForm1
     Top = 136
   end
   object conn1: TMySQL57Connection
-    Connected = False
+    Connected = True
     LoginPrompt = False
     DatabaseName = 'sandi_kotak'
     KeepConnection = False

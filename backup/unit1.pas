@@ -18,7 +18,6 @@ type
     btnRecognize: TButton;
     DataSource1: TDataSource;
     DBGrid1: TDBGrid;
-    Edit1: TEdit;
     huruf_sandi: TEdit;
     imgMod: TImage;
     imgSrc: TImage;
@@ -26,10 +25,12 @@ type
     Label2: TLabel;
     ListBox1: TListBox;
     conn1: TMySQL57Connection;
+    ListBox2: TListBox;
     MySQL57Connection2: TMySQL57Connection;
     OpenPictureDialog1: TOpenPictureDialog;
     query1: TSQLQuery;
     trans1: TSQLTransaction;
+    procedure FormCreate(Sender: TObject);
     procedure btnLoadClick(Sender: TObject);
     procedure btnPreprocessClick(Sender: TObject);
     procedure btnRecognizeClick(Sender: TObject);
@@ -47,34 +48,36 @@ implementation
 {$R *.lfm}
 
 uses
-  windows, math;
+  Windows, Math;
 
 var
-  bitmapR, bitmapG, bitmapB : array[0..1000, 0..1000] of integer;
-  bitmapGray, bitmapBiner, bitmapBiner2   : array[0..1000, 0..1000] of integer;
-  feature : array[1..5, 1..5] of integer;
-  feature_distribution  : array[1..5, 1..5] of double;
+  bitmapR, bitmapG, bitmapB: array[0..1000, 0..1000] of integer;
+  bitmapGray, bitmapBiner, bitmapBiner2: array[0..1000, 0..1000] of integer;
+  feature: array[1..5, 1..5] of integer;
+  feature_distribution: array[1..5, 1..5] of double;
+  abjad : array[1..1, 1..150] of string;
+  fitur_sample : array[1..25, 1..150] of string;
 
 { TForm1 }
 
 procedure TForm1.btnLoadClick(Sender: TObject);
 var
-  x, y          : integer;
-  R, G, B, Gray : integer;
+  x, y: integer;
+  R, G, B, Gray: integer;
 
 begin
-  if(OpenPictureDialog1.Execute) then
+  if (OpenPictureDialog1.Execute) then
   begin
     imgSrc.Picture.LoadFromFilE(OpenPictureDialog1.FileName);
   end;
 
-  for y := 0 to imgSrc.Height-1 do
+  for y := 0 to imgSrc.Height - 1 do
   begin
-    for x := 0 to imgSrc.Width-1 do
+    for x := 0 to imgSrc.Width - 1 do
     begin
-      R    := GetRValue(imgSrc.Canvas.Pixels[x, y]);
-      G    := GetGValue(imgSrc.Canvas.Pixels[x, y]);
-      B    := GetBValue(imgSrc.Canvas.Pixels[x, y]);
+      R := GetRValue(imgSrc.Canvas.Pixels[x, y]);
+      G := GetGValue(imgSrc.Canvas.Pixels[x, y]);
+      B := GetBValue(imgSrc.Canvas.Pixels[x, y]);
       Gray := (R + G + B) div 3;
 
       bitmapR[x, y] := R;
@@ -93,7 +96,7 @@ begin
   begin
     for x := 1 to 5 do
     begin
-      feature[x,y] := 0;
+      feature[x, y] := 0;
     end;
   end;
 
@@ -102,26 +105,26 @@ end;
 
 procedure TForm1.btnPreprocessClick(Sender: TObject);
 var
-  x, y    : integer;
-  i, j    : integer;
+  x, y: integer;
+  i, j: integer;
 
   // Variabel Untuk Proses Scan Line
-  tepi_atas_y  : integer;
-  tepi_bawah_y : integer;
-  tepi_kiri_x  : integer;
-  tepi_kanan_x : integer;
+  tepi_atas_y: integer;
+  tepi_bawah_y: integer;
+  tepi_kiri_x: integer;
+  tepi_kanan_x: integer;
 
   // Variabel Untuk Proses Ekstraksi Gambar Pertama
-  feature_number : integer;
-  cell_width, cell_height : integer;
-  left_most_cell, right_most_cell : integer;
-  top_most_cell, bottom_most_cell : integer;
-  total_cells_in_1_feature : integer;
+  feature_number: integer;
+  cell_width, cell_height: integer;
+  left_most_cell, right_most_cell: integer;
+  top_most_cell, bottom_most_cell: integer;
+  total_cells_in_1_feature: integer;
 
 begin
-(*------------------------------------*)
-(*********MELAKUKAN SCAN LINE**********)
-(*------------------------------------*)
+  (*------------------------------------*)
+  (*********MELAKUKAN SCAN LINE**********)
+  (*------------------------------------*)
 
   { 1. Mengambil Posisi Tepi Atas OBJEK }
   for y := 0 to imgSrc.Height - 1 do
@@ -215,24 +218,24 @@ begin
         imgMod.Canvas.Pixels[x, y] := RGB(255, 255, 255);
     end;
   end;
-(*------------------------------------*)
-(******MENGESKTRAKSI FITUR CITRA*******)
+  (*------------------------------------*)
+  (******MENGESKTRAKSI FITUR CITRA*******)
 
   { 1. menentukan lebar dan tinggi setiap cell setelah TImage dibagi menjadi matriks 5x5    }
-  cell_width  := round(imgMod.Width / 5);
+  cell_width := round(imgMod.Width / 5);
   cell_height := round(imgMod.Height / 5);
 
   // menentukan posisi paling kiri dan posisi paling kanan pixel dalam suatu daerah fitur
-  left_most_cell  := 0;
+  left_most_cell := 0;
   right_most_cell := 0;
 
   // menentukan posisi paling atas dan posisi paling bawah dalam suatu daerahfitur
-  top_most_cell   := 0;
-  bottom_most_cell:= 0;
+  top_most_cell := 0;
+  bottom_most_cell := 0;
 
   for j := 1 to 5 do
   begin
-    left_most_cell  := 0;
+    left_most_cell := 0;
     right_most_cell := 0;
     for i := 1 to 5 do
     begin
@@ -240,23 +243,23 @@ begin
       begin
         for x := (left_most_cell) to (cell_width + right_most_cell) do
         begin
-          if(bitmapBiner2[x,y] = 0) then
-            feature[i,j] += 1
+          if (bitmapBiner2[x, y] = 0) then
+            feature[i, j] += 1;
         end;
       end;
-      left_most_cell  += cell_width;
+      left_most_cell += cell_width;
       right_most_cell += cell_width;
     end;
-    top_most_cell    += cell_height;
+    top_most_cell += cell_height;
     bottom_most_cell += cell_height;
   end;
 
-  total_cells_in_1_feature := (cell_width ) * (cell_height);
+  total_cells_in_1_feature := (cell_width) * (cell_height);
   for y := 1 to 5 do
   begin
     for x := 1 to 5 do
     begin
-      feature_distribution[x,y] := (feature[x,y] / total_cells_in_1_feature);
+      feature_distribution[x, y] := (feature[x, y] / total_cells_in_1_feature);
     end;
   end;
 
@@ -267,38 +270,73 @@ begin
   begin
     for x := 1 to 5 do
     begin
-      ListBox1.Items.Add('Fitur ' + IntToStr(feature_number) + ' : ' + IntToStr(round((feature_distribution[x,y]*100))) + '%');
+      ListBox1.Items.Add('Fitur ' + IntToStr(feature_number) + ' : ' +
+        IntToStr(round((feature_distribution[x, y] * 100))) + '%');
       feature_number += 1;
     end;
   end;
 
 end;
 
-procedure TForm1.btnRecognizeClick(Sender: TObject);
+procedure TForm1.FormCreate(Sender: TObject);
 var
   x, y : integer;
 
 begin
   query1.SQL.Clear;
-  query1.SQL.Add('INSERT INTO sample27 (abjad, fitur_1, fitur_2, fitur_3, fitur_4, fitur_5,'+
-                 'fitur_6, fitur_7, fitur_8, fitur_9, fitur_10, fitur_11, fitur_12, fitur_13,'+
-                 'fitur_14, fitur_15, fitur_16, fitur_17, fitur_18, fitur_19, fitur_20, fitur_21,' +
-                 'fitur_22, fitur_23, fitur_24, fitur_25)' +
-                 'VALUES ("Z", ' +
-                 quotedStr(FloatToStr(feature_distribution[1,1])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,1])) + ',' + quotedStr(FloatToStr(feature_distribution[3,1])) + ',' + quotedStr(FloatToStr(feature_distribution[4,1])) + ',' + quotedStr(FloatToStr(feature_distribution[5,1])) + ',' +
-                 quotedStr(FloatToStr(feature_distribution[1,2])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,2])) + ',' + quotedStr(FloatToStr(feature_distribution[3,2])) + ',' + quotedStr(FloatToStr(feature_distribution[4,2])) + ',' + quotedStr(FloatToStr(feature_distribution[5,2])) + ',' +
-                 quotedStr(FloatToStr(feature_distribution[1,3])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,3])) + ',' + quotedStr(FloatToStr(feature_distribution[3,3])) + ',' + quotedStr(FloatToStr(feature_distribution[4,3])) + ',' + quotedStr(FloatToStr(feature_distribution[5,3])) + ',' +
-                 quotedStr(FloatToStr(feature_distribution[1,4])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,4])) + ',' + quotedStr(FloatToStr(feature_distribution[3,4])) + ',' + quotedStr(FloatToStr(feature_distribution[4,4])) + ',' + quotedStr(FloatToStr(feature_distribution[5,4])) + ',' +
-                 quotedStr(FloatToStr(feature_distribution[1,5])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,5])) + ',' + quotedStr(FloatToStr(feature_distribution[3,5])) + ',' + quotedStr(FloatToStr(feature_distribution[4,5])) + ',' + quotedStr(FloatToStr(feature_distribution[5,5])) + ')');
-  query1.ExecSQL;
-  trans1.Commit;
-
-  query1.SQL.Clear;
   query1.SQL.Add('SELECT * FROM sample27');
   query1.Close;
   query1.Open;
 
+  y := 1;
+  Query1.DisableControls;
+  try
+    Query1.First;
+      begin
+        while not Query1.EOF do
+        begin
+          abjad[1,y] := Query1.FieldByName('abjad').AsString;
+          Query1.Next;
+          inc(y);
+        end;
+        Query1.First;
+        end;
+  finally
+    Query1.EnableControls;
+  end;
+
+
+  for x := 1 to 25 do
+  begin
+     y := 1;
+     Query1.DisableControls;
+     try
+        Query1.First;
+        begin
+          while not Query1.EOF do
+          begin
+            fitur_sample[x,y] := Query1.FieldByName('fitur_' + IntToStr(x)).AsString;
+            Query1.Next;
+            inc(y);
+          end;
+          Query1.First;
+        end;
+    finally
+      Query1.EnableControls;
+    end;
+  end;
+
+  for y := 1 to 130 do
+  begin
+    ListBox2.Items.Add(fitur_sample[25,y]);
+  end;
+end;
+
+procedure TForm1.btnRecognizeClick(Sender: TObject);
+var
+
+begin
+
 end;
 
 end.
-
