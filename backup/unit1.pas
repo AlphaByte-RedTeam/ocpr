@@ -219,14 +219,10 @@ begin
     end;
   end;
 
-  { 7. Mengatur Tinggi dan Lebar Gambar Setelah Dipotong }
-  imgMod.Width := tepi_kanan_x - tepi_kiri_x;
-  imgMod.Height := tepi_bawah_y - tepi_atas_y;
-
   { 8. Menampilkan Pixel ke Gambar Setelah Dipotong }
-  for y := 0 to imgMod.Height do
+  for y := 0 tepi_bawah_y - tepi_atas_y do
   begin
-    for x := 0 to imgMod.Width do
+    for x := 0 to tepi_kanan_x - tepi_kiri_x do
     begin
       if (bitmapBiner2[x, y] = 0) then
         imgMod.Canvas.Pixels[x, y] := RGB(0, 0, 0)
@@ -234,6 +230,11 @@ begin
         imgMod.Canvas.Pixels[x, y] := RGB(255, 255, 255);
     end;
   end;
+
+  { 7. Mengatur Tinggi dan Lebar Gambar Setelah Dipotong }
+  imgMod.Width := tepi_kanan_x - tepi_kiri_x;
+  imgMod.Height := tepi_bawah_y - tepi_atas_y;
+
   (*------------------------------------*)
   (******MENGESKTRAKSI FITUR CITRA*******)
 
@@ -418,7 +419,7 @@ begin
   else
   begin
       ListBox1.Items.Add(IntToStr(key_index));
-      huruf_sandi.Font.Color := clRed;
+      huruf_sandi.Font.Color := clBlack;
       huruf_sandi.Text := abjad[1,key_index];
   end;
 
