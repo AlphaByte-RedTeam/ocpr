@@ -6,6 +6,7 @@ object Form1: TForm1
   Caption = 'Form1'
   ClientHeight = 579
   ClientWidth = 931
+  OnCreate = FormCreate
   LCLVersion = '2.2.0.1'
   object btnLoad: TButton
     Left = 240

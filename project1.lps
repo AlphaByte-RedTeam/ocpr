@@ -21,14 +21,14 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="272"/>
-        <CursorPos X="29" Y="287"/>
+        <TopLine Value="263"/>
+        <CursorPos X="6" Y="282"/>
         <UsageCount Value="59"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="10">
+    <JumpHistory HistoryIndex="11">
       <Position>
         <Filename Value="unit1.pas"/>
         <Caret Line="290" Column="3" TopLine="258"/>
@@ -72,6 +72,10 @@
       <Position>
         <Filename Value="unit1.pas"/>
         <Caret Line="292" Column="156" TopLine="262"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="288" Column="29" TopLine="256"/>
       </Position>
     </JumpHistory>
     <RunParams>

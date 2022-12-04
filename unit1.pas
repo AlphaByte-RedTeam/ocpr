@@ -33,6 +33,7 @@ type
     procedure btnLoadClick(Sender: TObject);
     procedure btnPreprocessClick(Sender: TObject);
     procedure btnRecognizeClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
 
   public
@@ -279,25 +280,15 @@ var
   x, y : integer;
 
 begin
-  query1.SQL.Clear;
-  query1.SQL.Add('INSERT INTO sample27 (abjad, fitur_1, fitur_2, fitur_3, fitur_4, fitur_5,'+
-                 'fitur_6, fitur_7, fitur_8, fitur_9, fitur_10, fitur_11, fitur_12, fitur_13,'+
-                 'fitur_14, fitur_15, fitur_16, fitur_17, fitur_18, fitur_19, fitur_20, fitur_21,' +
-                 'fitur_22, fitur_23, fitur_24, fitur_25)' +
-                 'VALUES ("Z", ' +
-                 quotedStr(FloatToStr(feature_distribution[1,1])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,1])) + ',' + quotedStr(FloatToStr(feature_distribution[3,1])) + ',' + quotedStr(FloatToStr(feature_distribution[4,1])) + ',' + quotedStr(FloatToStr(feature_distribution[5,1])) + ',' +
-                 quotedStr(FloatToStr(feature_distribution[1,2])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,2])) + ',' + quotedStr(FloatToStr(feature_distribution[3,2])) + ',' + quotedStr(FloatToStr(feature_distribution[4,2])) + ',' + quotedStr(FloatToStr(feature_distribution[5,2])) + ',' +
-                 quotedStr(FloatToStr(feature_distribution[1,3])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,3])) + ',' + quotedStr(FloatToStr(feature_distribution[3,3])) + ',' + quotedStr(FloatToStr(feature_distribution[4,3])) + ',' + quotedStr(FloatToStr(feature_distribution[5,3])) + ',' +
-                 quotedStr(FloatToStr(feature_distribution[1,4])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,4])) + ',' + quotedStr(FloatToStr(feature_distribution[3,4])) + ',' + quotedStr(FloatToStr(feature_distribution[4,4])) + ',' + quotedStr(FloatToStr(feature_distribution[5,4])) + ',' +
-                 quotedStr(FloatToStr(feature_distribution[1,5])) + ',' +  quotedStr(FloatToStr(feature_distribution[2,5])) + ',' + quotedStr(FloatToStr(feature_distribution[3,5])) + ',' + quotedStr(FloatToStr(feature_distribution[4,5])) + ',' + quotedStr(FloatToStr(feature_distribution[5,5])) + ')');
-  query1.ExecSQL;
-  trans1.Commit;
 
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
   query1.SQL.Clear;
   query1.SQL.Add('SELECT * FROM sample27');
   query1.Close;
   query1.Open;
-
 end;
 
 end.
