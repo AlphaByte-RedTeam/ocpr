@@ -34,6 +34,7 @@ type
     procedure btnLoadClick(Sender: TObject);
     procedure btnPreprocessClick(Sender: TObject);
     procedure btnRecognizeClick(Sender: TObject);
+
   private
 
   public
@@ -57,6 +58,10 @@ var
   feature_distribution: array[1..5, 1..5] of double;
   abjad : array[1..1, 1..150] of string;
   fitur_sample : array[1..25, 1..150] of string;
+  jarak : array[1..1,1..150] of double;
+  jarak_1 : array[1..150] of double;
+  feature_input : array[1..25] of double;
+  key_index : integer;
 
 { TForm1 }
 
@@ -125,6 +130,14 @@ begin
   (*------------------------------------*)
   (*********MELAKUKAN SCAN LINE**********)
   (*------------------------------------*)
+
+  for y := 1 to 5 do
+  begin
+    for x := 1 to 5 do
+    begin
+      feature_distribution[x,y] := 0;
+    end;
+  end;
 
   { 1. Mengambil Posisi Tepi Atas OBJEK }
   for y := 0 to imgSrc.Height - 1 do
@@ -334,8 +347,64 @@ end;
 
 procedure TForm1.btnRecognizeClick(Sender: TObject);
 var
+  x, y : integer;
+  L1 : double;
+  LValIdx: Integer;
+  LMinIdx: Integer = 1;
 
 begin
+  feature_input[1]   := feature_distribution[1,1];
+  feature_input[2]   := feature_distribution[1,2];
+  feature_input[3]   := feature_distribution[1,3];
+  feature_input[4]   := feature_distribution[1,4];
+  feature_input[5]   := feature_distribution[1,5];
+  feature_input[6]   := feature_distribution[2,1];
+  feature_input[7]   := feature_distribution[2,2];
+  feature_input[8]   := feature_distribution[2,3];
+  feature_input[9]   := feature_distribution[2,4];
+  feature_input[10]  := feature_distribution[2,5];
+  feature_input[11]  := feature_distribution[3,1];
+  feature_input[12]  := feature_distribution[3,2];
+  feature_input[13]  := feature_distribution[3,3];
+  feature_input[14]  := feature_distribution[3,4];
+  feature_input[15]  := feature_distribution[3,5];
+  feature_input[16]  := feature_distribution[4,1];
+  feature_input[17]  := feature_distribution[4,2];
+  feature_input[18]  := feature_distribution[4,3];
+  feature_input[19]  := feature_distribution[4,4];
+  feature_input[20]  := feature_distribution[4,5];
+  feature_input[21]  := feature_distribution[5,1];
+  feature_input[22]  := feature_distribution[5,2];
+  feature_input[23]  := feature_distribution[5,3];
+  feature_input[24]  := feature_distribution[5,4];
+  feature_input[25]  := feature_distribution[5,5];
+
+  L1 := 0;
+  for y := 1 to 130 do
+  begin
+    for x := 1 to 25 do
+    begin
+      L1 := L1 + abs(feature_input[x] - StrToFloat(fitur_sample[x,y]));
+    end;
+    jarak_1[y] := L1;
+    L1 := 0;
+  end;
+
+  ListBox2.Clear;
+  for y := 1 to 130 do
+  begin
+    ListBox2.Items.Add(FloatToStr(jarak_1[y]));
+  end;
+
+  for LValIdx := 1 to 130 do
+    if jarak_1[LValIdx] < jarak_1[LMinIdx] then
+      LMinIdx := LValIdx;
+
+  key_index := LMinIdx;
+  ListBox1.Clear;
+
+  ListBox1.Items.Add(IntToStr(key_index));
+  huruf_sandi.Text := abjad[1,key_index];
 
 end;
 
