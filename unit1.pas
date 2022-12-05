@@ -26,7 +26,6 @@ type
     ListBox1: TListBox;
     conn1: TMySQL57Connection;
     ListBox2: TListBox;
-    MySQL57Connection2: TMySQL57Connection;
     OpenPictureDialog1: TOpenPictureDialog;
     query1: TSQLQuery;
     trans1: TSQLTransaction;
@@ -219,7 +218,7 @@ begin
     end;
   end;
 
-  { 8. Menampilkan Pixel ke Gambar Setelah Dipotong }
+  { 7. Menampilkan Pixel ke Gambar Setelah Dipotong }
   for y := 0 to tepi_bawah_y - tepi_atas_y do
   begin
     for x := 0 to tepi_kanan_x - tepi_kiri_x do
@@ -231,12 +230,13 @@ begin
     end;
   end;
 
-  { 7. Mengatur Tinggi dan Lebar Gambar Setelah Dipotong }
+  { 8. Mengatur Tinggi dan Lebar Gambar Setelah Dipotong }
   imgMod.Width := tepi_kanan_x - tepi_kiri_x;
   imgMod.Height := tepi_bawah_y - tepi_atas_y;
 
   (*------------------------------------*)
   (******MENGESKTRAKSI FITUR CITRA*******)
+  (*------------------------------------*)
 
   { 1. menentukan lebar dan tinggi setiap cell setelah TImage dibagi menjadi matriks 5x5    }
   cell_width := round(imgMod.Width / 5);

@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 407
+  Left = 110
   Height = 579
-  Top = 58
+  Top = 86
   Width = 931
   Caption = 'Form1'
   ClientHeight = 579
@@ -306,14 +306,6 @@ object Form1: TForm1
     SkipLibraryVersionCheck = False
     Left = 32
     Top = 72
-  end
-  object MySQL57Connection2: TMySQL57Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    SkipLibraryVersionCheck = False
-    Left = 773
-    Top = 65522
   end
   object DataSource1: TDataSource
     DataSet = query1

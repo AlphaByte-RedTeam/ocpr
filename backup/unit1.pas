@@ -90,7 +90,7 @@ begin
       bitmapB[x, y] := B;
 
       bitmapGray[x, y] := Gray;
-      if Gray > 200 then
+      if Gray > 250 then
         bitmapBiner[x, y] := 1
       else
         bitmapBiner[x, y] := 0;
@@ -219,8 +219,8 @@ begin
     end;
   end;
 
-  { 8. Menampilkan Pixel ke Gambar Setelah Dipotong }
-  for y := 0 tepi_bawah_y - tepi_atas_y do
+  { 7. Menampilkan Pixel ke Gambar Setelah Dipotong }
+  for y := 0 to tepi_bawah_y - tepi_atas_y do
   begin
     for x := 0 to tepi_kanan_x - tepi_kiri_x do
     begin
@@ -231,7 +231,7 @@ begin
     end;
   end;
 
-  { 7. Mengatur Tinggi dan Lebar Gambar Setelah Dipotong }
+  { 8. Mengatur Tinggi dan Lebar Gambar Setelah Dipotong }
   imgMod.Width := tepi_kanan_x - tepi_kiri_x;
   imgMod.Height := tepi_bawah_y - tepi_atas_y;
 
