@@ -25,8 +25,6 @@ type
     Label2: TLabel;
     ListBox1: TListBox;
     conn1: TMySQL57Connection;
-    ListBox2: TListBox;
-    MySQL57Connection2: TMySQL57Connection;
     OpenPictureDialog1: TOpenPictureDialog;
     query1: TSQLQuery;
     trans1: TSQLTransaction;
@@ -90,7 +88,7 @@ begin
       bitmapB[x, y] := B;
 
       bitmapGray[x, y] := Gray;
-      if Gray > 250 then
+      if Gray > 200 then
         bitmapBiner[x, y] := 1
       else
         bitmapBiner[x, y] := 0;
@@ -237,6 +235,7 @@ begin
 
   (*------------------------------------*)
   (******MENGESKTRAKSI FITUR CITRA*******)
+  (*------------------------------------*)
 
   { 1. menentukan lebar dan tinggi setiap cell setelah TImage dibagi menjadi matriks 5x5    }
   cell_width := round(imgMod.Width / 5);
@@ -342,11 +341,6 @@ begin
       Query1.EnableControls;
     end;
   end;
-
-  for y := 1 to 130 do
-  begin
-    ListBox2.Items.Add(fitur_sample[25,y]);
-  end;
 end;
 
 procedure TForm1.btnRecognizeClick(Sender: TObject);
@@ -398,27 +392,23 @@ begin
     L1 := 0;
   end;
 
-  ListBox2.Clear;
-  for y := 1 to 130 do
-  begin
-    ListBox2.Items.Add(FloatToStr(jarak_1[y]));
-  end;
-
   for LValIdx := 1 to 130 do
     if jarak_1[LValIdx] < jarak_1[LMinIdx] then
       LMinIdx := LValIdx;
 
   key_index := LMinIdx;
-  ListBox1.Clear;
 
   if(jarak_1[key_index] > 5) then
   begin
+      huruf_sandi.Width := 235;
       huruf_sandi.Font.Color := clRed;
       huruf_sandi.Text := 'Sandi Tidak Dikenali!'
   end
   else
   begin
-      ListBox1.Items.Add(IntToStr(key_index));
+      huruf_sandi.Font.Size := 50;
+      huruf_sandi.Left := 860;
+      huruf_sandi.Width := 50;
       huruf_sandi.Font.Color := clBlack;
       huruf_sandi.Text := abjad[1,key_index];
   end;
