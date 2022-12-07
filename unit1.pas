@@ -410,7 +410,7 @@ begin
   begin
       huruf_sandi.Font.Size := 50;
       huruf_sandi.Left := 860;
-      huruf_sandi.Width := 50;
+      huruf_sandi.Width := 55;
       huruf_sandi.Font.Color := clBlack;
       huruf_sandi.Text := abjad[1,key_index];
   end;

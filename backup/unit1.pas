@@ -400,6 +400,8 @@ begin
 
   if(jarak_1[key_index] > 5) then
   begin
+      huruf_sandi.Left := 824;
+      huruf_sandi.Font.Size := 18;
       huruf_sandi.Width := 235;
       huruf_sandi.Font.Color := clRed;
       huruf_sandi.Text := 'Sandi Tidak Dikenali!'
