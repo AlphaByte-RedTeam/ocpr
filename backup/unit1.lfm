@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 110
+  Left = 337
   Height = 579
-  Top = 86
+  Top = 53
   Width = 931
   Caption = 'Form1'
   ClientHeight = 579
@@ -67,7 +67,7 @@ object Form1: TForm1
     Left = 824
     Height = 34
     Top = 184
-    Width = 248
+    Width = 235
     Font.CharSet = ANSI_CHARSET
     Font.Height = -24
     Font.Name = 'Times New Roman'
@@ -93,7 +93,7 @@ object Form1: TForm1
     ParentFont = False
   end
   object ListBox1: TListBox
-    Left = 528
+    Left = 538
     Height = 168
     Top = 432
     Width = 136
@@ -101,7 +101,7 @@ object Form1: TForm1
     TabOrder = 4
   end
   object Label2: TLabel
-    Left = 528
+    Left = 544
     Height = 21
     Top = 400
     Width = 130
@@ -122,21 +122,14 @@ object Form1: TForm1
     Columns = <>
     DataSource = DataSource1
     TabOrder = 5
-  end
-  object ListBox2: TListBox
-    Left = 216
-    Height = 152
-    Top = 456
-    Width = 132
-    ItemHeight = 0
-    TabOrder = 6
+    Visible = False
   end
   object OpenPictureDialog1: TOpenPictureDialog
     Left = 64
     Top = 8
   end
   object trans1: TSQLTransaction
-    Active = True
+    Active = False
     Database = conn1
     Left = 144
     Top = 72
@@ -281,7 +274,6 @@ object Form1: TForm1
         DataType = ftFloat
         Precision = -1
       end>
-    Active = True
     Database = conn1
     Transaction = trans1
     SQL.Strings = (
@@ -293,7 +285,7 @@ object Form1: TForm1
     Top = 136
   end
   object conn1: TMySQL57Connection
-    Connected = True
+    Connected = False
     LoginPrompt = False
     DatabaseName = 'sandi_kotak'
     KeepConnection = False
@@ -306,14 +298,6 @@ object Form1: TForm1
     SkipLibraryVersionCheck = False
     Left = 32
     Top = 72
-  end
-  object MySQL57Connection2: TMySQL57Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    SkipLibraryVersionCheck = False
-    Left = 773
-    Top = 65522
   end
   object DataSource1: TDataSource
     DataSet = query1
